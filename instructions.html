@@ -1,0 +1,36 @@
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+</head>
+
+<body style="background-color: 325aa0;">
+
+    <div id="instruct-square">
+        <h1 style="margin:5px;text-align: center;font-size: xx-large;">Instructions to Candidates</h1>
+        <hr color="black" style="border-width:0.5px">
+        <ul>
+            <li>You have 1 hour and 30 minutes for this competition. The timer will begin when "Start Quiz" is pressed.
+            </li>
+            <li>There are 15 questions in total.</li>
+            <li>Each question will be in a multiple choice format with 5 options.</li>
+            <li>Each correct answer will award 3 marks. There is no penalty for incorrect answers.</li>
+            <li>Calculators are strictly not allowed.</li>
+        </ul>
+        <hr color="black" style="border-width:0.5px">
+        <div>
+            <button type="button" id="startBtn" class="btnDisable" disabled onclick="location.href = 'main.html';"></button>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+    var time=5;
+    instructTimer();
+</script>

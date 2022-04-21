@@ -1,0 +1,96 @@
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script type="text/javascript" src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+</head>
+
+<body style="margin:0px;background-color: #f2f2f2;">
+    <div id="head">
+        <div id="timer">
+            <div style="display: inline-block;width:90px;">Time Left:</div>
+            <div id="clock" style="display: inline-block;margin: 0 5px;"></div>
+            <div id="bar" style="display: inline-block;margin:0 5px">
+                <div id="progress"></div>
+            </div>
+        </div>
+        <div class="acs" style="padding: 0 10px;justify-content: center;flex:1;font-size: 50px;">ACMC 2022</div>
+        <div style="padding: 10px;justify-content: flex-end;flex:1;text-align: right;padding-right: 20px;">Terence Tao</div>
+    </div>
+    <div style="height:100%;display: flex;flex-flow: column;justify-content: space-between;">
+        <div style="padding-top: 80px; text-align:center;width: 100%;">
+            <div style="width: 50vw;margin: auto;">
+                <div class="question-num">Question 1</div>
+                <div class="question-box">add image here</div>
+            </div>
+            <div style="display: flex;padding:10px;margin:0 20px;justify-content:center;">
+                <div class="option-wrap">
+                    <input type="checkbox" class="option" value="1" id="opt1" name="opt[]">A</input>
+                </div>
+                <div class="option-wrap">
+                    <input type="checkbox" class="option" value="2" id="opt2" name="opt[]">B</input>
+                </div>
+                <div class="option-wrap">
+                    <input type="checkbox" class="option" value="3" id="opt3" name="opt[]">C</input>
+                </div>
+                <div class="option-wrap">
+                    <input type="checkbox" class="option" value="4" id="opt4" name="opt[]">D</input>
+                </div>
+                <div class="option-wrap">
+                    <input type="checkbox" class="option" value="5" id="opt5" name="opt[]90*">E</input>
+                </div>
+            </div>
+        </div>
+        <div style="text-align:center;width: 100%;justify-content: flex-end;">
+            <div style="display: flex;justify-content: center;justify-self: flex-start;">
+                <button id="save">Save</button>
+                <button id="nextBtn">Next Question</button>
+            </div>
+            <div style="background-color: lightgrey;display: flex; justify-content: center;justify-self: flex-end;margin-top: 10px;">
+                <button type="button" class="qnum-box"> 1 </button>
+                <button type="button" class="qnum-box"> 2 </button>
+                <button type="button" class="qnum-box"> 3 </button>
+                <button type="button" class="qnum-box"> 4 </button>
+                <button type="button" class="qnum-box"> 5 </button>
+                <button type="button" class="qnum-box"> 6 </button>
+                <button type="button" class="qnum-box"> 7 </button>
+                <button type="button" class="qnum-box"> 8 </button>
+                <button type="button" class="qnum-box"> 9 </button>
+                <button type="button" class="qnum-box"> 10 </button>
+                <button type="button" class="qnum-box"> 11 </button>
+                <button type="button" class="qnum-box"> 12 </button>
+                <button type="button" class="qnum-box"> 13 </button>
+                <button type="button" class="qnum-box"> 14 </button>
+                <button type="button" class="qnum-box"> 15 </button>
+                <button type="button" id="submit" onclick="location.href = 'finish.html';">Submit</button>
+            </div>
+            <div id="tail">
+                &copy 2022 MCT | All Rights Reserved
+            </div>
+        </div>
+
+    </div>
+
+    
+</body>
+
+</html>
+
+<script>
+    $("input:checkbox").on('click', function () {
+        var $box = $(this);
+        if ($box.is(":checked")) {
+            var group = "input:checkbox[name='" + $box.attr("name") + "']";
+            $(group).prop("checked", false);
+            $box.prop("checked", true);
+        } else {
+            $box.prop("checked", false);
+        }
+    })
+    var tsec = 90 * 60;
+    var time = tsec;
+    mainTimer();
+</script>
