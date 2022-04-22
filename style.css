@@ -27,7 +27,6 @@ button:hover:not([disabled]) {
   border-radius: 50px;
   box-shadow: 0px 0px 15px grey;
   padding: 5vh 5vw;
-  height: 50vh;
   width: 20vw;
   position: absolute;
   top: 50%;
