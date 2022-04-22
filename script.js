@@ -23,7 +23,7 @@ function mainTimer() {
     var secs = Math.floor(time % 60);
     document.getElementById("clock").innerHTML = hours + ':' + str_pad_left(mins, '0', 2) + ':' + str_pad_left(secs, '0', 2);
     document.getElementById("progress").style.width = time * 150 / tsec + "px";
-    if (time < 0) {
+    if (time < 1) {
         //send start time to server
     } else {
         time -= 1;
