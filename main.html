@@ -5,10 +5,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <script type="text/javascript" src="script.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body style="margin:0px;background-color: #f2f2f2;">
+<body style="margin:0px;background-color: #f2f2f2;" onload="toggle_visibility('input-mcq','show');toggle_visibility('input-open','hide');">
     <div id="head">
         <div id="timer">
             <div style="display: inline-block;width:90px;">Time Left:</div>
@@ -18,53 +18,60 @@
             </div>
         </div>
         <div class="acs" style="padding: 0 10px;justify-content: center;flex:1;font-size: 50px;">ACMC 2022</div>
-        <div style="padding: 10px;justify-content: flex-end;flex:1;text-align: right;padding-right: 20px;">Terence Tao</div>
+        <div id="name" style="padding: 10px;justify-content: flex-end;flex:1;text-align: right;padding-right: 20px;">
+        </div>
     </div>
     <div style="height:100%;display: flex;flex-flow: column;justify-content: space-between;">
         <div style="padding-top: 80px; text-align:center;width: 100%;">
             <div style="width: 50vw;margin: auto;">
-                <div class="question-num">Question 1</div>
-                <div class="question-box">add image here</div>
+                <div class="question-num" id = "question-num">Question</div>
+                <div class="question-box">
+                    <img id="question-img">
+                </div>
             </div>
-            <div style="display: flex;padding:10px;margin:0 20px;justify-content:center;">
+            <div id="input-mcq" style="display: flex;padding:10px;margin:0 20px;justify-content:center;">
                 <div class="option-wrap">
-                    <input type="checkbox" class="option" value="1" id="opt1" name="opt[]">A</input>
+                    <input type="checkbox" class="option" value="A" id="opt1" name="opt[]">A</input>
                 </div>
                 <div class="option-wrap">
-                    <input type="checkbox" class="option" value="2" id="opt2" name="opt[]">B</input>
+                    <input type="checkbox" class="option" value="B" id="opt2" name="opt[]">B</input>
                 </div>
                 <div class="option-wrap">
-                    <input type="checkbox" class="option" value="3" id="opt3" name="opt[]">C</input>
+                    <input type="checkbox" class="option" value="C" id="opt3" name="opt[]">C</input>
                 </div>
                 <div class="option-wrap">
-                    <input type="checkbox" class="option" value="4" id="opt4" name="opt[]">D</input>
+                    <input type="checkbox" class="option" value="D" id="opt4" name="opt[]">D</input>
                 </div>
                 <div class="option-wrap">
-                    <input type="checkbox" class="option" value="5" id="opt5" name="opt[]">E</input>
+                    <input type="checkbox" class="option" value="E" id="opt5" name="opt[]">E</input>
                 </div>
+            </div>
+            <div id="input-open" style="display: flex;padding:10px;margin:0 20px;justify-content:center;">
+                    <input type="number" id="open" placeholder="Answer" style="width:30vw"></input>
             </div>
         </div>
         <div style="text-align:center;width: 100%;justify-content: flex-end;">
             <div style="display: flex;justify-content: center;justify-self: flex-start;">
-                <button id="save">Save</button>
-                <button id="nextBtn">Next Question</button>
+                <button id="save" onclick="saveAns()">Save</button>
+                <button id="nextBtn" onclick="nextQn()">Next Question</button>
             </div>
-            <div style="background-color: lightgrey;display: flex; justify-content: center;justify-self: flex-end;margin-top: 10px;">
-                <button type="button" class="qnum-box"> 1 </button>
-                <button type="button" class="qnum-box"> 2 </button>
-                <button type="button" class="qnum-box"> 3 </button>
-                <button type="button" class="qnum-box"> 4 </button>
-                <button type="button" class="qnum-box"> 5 </button>
-                <button type="button" class="qnum-box"> 6 </button>
-                <button type="button" class="qnum-box"> 7 </button>
-                <button type="button" class="qnum-box"> 8 </button>
-                <button type="button" class="qnum-box"> 9 </button>
-                <button type="button" class="qnum-box"> 10 </button>
-                <button type="button" class="qnum-box"> 11 </button>
-                <button type="button" class="qnum-box"> 12 </button>
-                <button type="button" class="qnum-box"> 13 </button>
-                <button type="button" class="qnum-box"> 14 </button>
-                <button type="button" class="qnum-box"> 15 </button>
+            <div
+                style="background-color: lightgrey;display: flex; justify-content: center;justify-self: flex-end;margin-top: 10px;">
+                <button type="button" class="qnum-box" id="q1" onclick="changeQn(1)"> 1 </button>
+                <button type="button" class="qnum-box" id="q2" onclick="changeQn(2)"> 2 </button>
+                <button type="button" class="qnum-box" id="q3" onclick="changeQn(3)"> 3 </button>
+                <button type="button" class="qnum-box" id="q4" onclick="changeQn(4)"> 4 </button>
+                <button type="button" class="qnum-box" id="q5" onclick="changeQn(5)"> 5 </button>
+                <button type="button" class="qnum-box" id="q6" onclick="changeQn(6)"> 6 </button>
+                <button type="button" class="qnum-box" id="q7" onclick="changeQn(7)"> 7 </button>
+                <button type="button" class="qnum-box" id="q8" onclick="changeQn(8)"> 8 </button>
+                <button type="button" class="qnum-box" id="q9" onclick="changeQn(9)"> 9 </button>
+                <button type="button" class="qnum-box" id="q10" onclick="changeQn(10)"> 10 </button>
+                <button type="button" class="qnum-box" id="q11" onclick="changeQn(11)"> 11 </button>
+                <button type="button" class="qnum-box" id="q12" onclick="changeQn(12)"> 12 </button>
+                <button type="button" class="qnum-box" id="q13" onclick="changeQn(13)"> 13 </button>
+                <button type="button" class="qnum-box" id="q14" onclick="changeQn(14)"> 14 </button>
+                <button type="button" class="qnum-box" id="q15" onclick="changeQn(15)"> 15 </button>
                 <button type="button" id="submit" onclick="location.href = 'finish';">Submit</button>
             </div>
             <div id="tail">
@@ -74,13 +81,15 @@
 
     </div>
 
-    
-</body>
 
+</body>
+<div id="spin">
+    
+</div>
 </html>
 
 <script>
-    //CSJDBSHAJLfdahskdhsagshdsf
+    var qn = 1;
     $("input:checkbox").on('click', function () {
         var $box = $(this);
         if ($box.is(":checked")) {
@@ -91,7 +100,11 @@
             $box.prop("checked", false);
         }
     })
-    var tsec = 90 * 60;
-    var time = tsec;
-    mainTimer();
+    getMainTime();
+    getName();
+    
+    changeQn(1);
+
+    
+
 </script>

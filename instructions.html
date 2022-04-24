@@ -4,7 +4,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
     <script type="text/javascript" src="script.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body style="background-color: 325aa0;">
@@ -22,7 +22,7 @@
         </ul>
         <hr color="black" style="border-width:0.5px">
         <div>
-            <button type="button" id="startBtn" class="btnDisable" disabled onclick="location.href = 'main';"></button>
+            <button type="button" id="startBtn" class="btnDisable" disabled onclick="start();"></button>
         </div>
     </div>
 
@@ -31,6 +31,5 @@
 </html>
 
 <script>
-    var time=5;
-    instructTimer();
+    getTime();
 </script>
