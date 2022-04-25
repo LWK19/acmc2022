@@ -37,7 +37,9 @@ function mainTimer() {
 }
 
 async function post(meth, id, pword, ans, qn, timer) {
-    let key = "AKfycbz1oe-lmovYvwKcdL5BYALtodBz2-EK6Pp0J-UVU_sKzvPu2TNHtOCPgWN0mt0MflfZHA"
+    document.getElementById("load").classList.remove("hidden");
+    document.getElementById("load").classList.add("visible");
+    let key = "AKfycbxWNrjelCgB3RaYTjp7FNOm3gdbt82nMJowK2ZCnbwPFBDlsY6qx_rDwXt6KA6fFBNllQ"
     let url = "https://script.google.com/macros/s/" + key + "/exec";
     var req = await jQuery.ajax({
         crossDomain: true,
@@ -45,22 +47,24 @@ async function post(meth, id, pword, ans, qn, timer) {
         method: "POST",
         data: '{"meth": "' + meth + '", "ans": "' + ans + '", "id": "' + id + '", "qn": "' + qn + '", "timer": "' + timer + '", "pword": "' + pword + '"}',
     });
+    document.getElementById("load").classList.remove("visible");
+    document.getElementById("load").classList.add("hidden");
     return req;
 }
 async function login() {
-    //spinner
     usern = document.getElementById("username").value;
     pword = document.getElementById("password").value;
+    console.log(usern, pword);
     var resp = await post(meth = "login", id = usern, pword = pword);
-    //end spinner
     if (resp == "Login Success") {
         location.href = 'instructions.html';
     } else if (resp == "Incorrect Password") {
-        alert("Incorrect Password");
-    } else if (resp == "Incorrect USername") {
-        alert("Incorrect Username");
+        document.getElementById("incorrect").innerHTML = "Incorrect Password";
+    } else if (resp == "Incorrect Username") {
+        document.getElementById("incorrect").innerHTML = "Incorrect Username";
     } else {
-        alert("Not sons");
+        console.log(resp);
+        alert("Response error");
     }
 
 }
@@ -161,8 +165,17 @@ function toggle_visibility(id, cs) {
         document.getElementById(id).style.display = 'none';
     }
 }
-
-
+ 
+function submit(){
+    document.getElementById('confirmSubmit').classList.remove('visible');
+    document.getElementById('confirmSubmit').classList.add('hidden');
+    //submit ans
+    location.href = 'finish.html';
+}
+function enlarge(){
+    document.getElementById("lightbox").style.visibility = "visible";
+    document.getElementById("img-enlarge").src = document.getElementById("question-img").src;
+}
 
 var ans_list = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
 //on submit, check all ans saved again, ignore empty because of reload
