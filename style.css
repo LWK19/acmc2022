@@ -157,6 +157,7 @@ input{
   padding:20px;
   box-align:center;
 }
+// TODO change smaller
 .loader {
   display:flex;
   margin:auto;
