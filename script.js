@@ -66,6 +66,7 @@ async function login() {
         console.log(resp);
         alert("Response error");
     }
+    // TODO - Secure Login
 
 }
 
@@ -90,10 +91,12 @@ async function start() {
 }
 
 async function getName() {
+    //TODO - change id to passed variable
     var resp = await post("get_name", "17lee");
     console.log(resp);
     if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
     else { document.getElementById("name").innerHTML = resp; }
+
 }
 
 async function saveAns() {
