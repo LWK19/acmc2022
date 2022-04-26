@@ -2,7 +2,6 @@ var script = document.createElement('script');
 script.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
 document.getElementsByTagName('head')[0].appendChild(script);
 
-var key = getCookie("username");
 
 function str_pad_left(string, pad, length) {
     return (new Array(length + 1).join(pad) + string).slice(-length);
@@ -77,22 +76,21 @@ async function login() {
 }
 
 async function getTime() {
-    var resp = await post("get_time", key, "", "", "", "inst");
+    var resp = await post("get_time", getCookie("username"), "", "", "", "inst");
     console.log(resp);
     time = parseInt(resp);
     instructTimer();
 }
 
 async function getMainTime() {
-    var resp = await post("get_time", key, "", "", "", "main");
+    var resp = await post("get_time", getCookie("username"), "", "", "", "main");
     console.log(resp);
     time = parseInt(resp);
     mainTimer();
 }
 async function start() {
     console.log(document.cookie);
-    console.log(key);
-    var resp = await post("start_time", key);
+    var resp = await post("start_time", getCookie("username"));
     console.log(resp);
     if (resp == "Start Time Recorded") { location.href = 'main.html'; }
     else { alert("Error. Reload and try again."); }
@@ -100,7 +98,7 @@ async function start() {
 
 async function getName() {
     //TODO - change id to passed variable
-    var resp = await post("get_name", key);
+    var resp = await post("get_name", getCookie("username"));
     console.log(resp);
     if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
     else { document.getElementById("name").innerHTML = resp; }
@@ -114,7 +112,7 @@ async function saveAns() {
         } else if (checked.length == 1) {
             ans = checked[0].value;
             ans_list[qn - 1] = ans;
-            var resp = await post("save_ans", key, pword = "", ans = ans, qn = qn);
+            var resp = await post("save_ans", getCookie("username"), pword = "", ans = ans, qn = qn);
             if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
             else {console.log(resp);}
         } else {
@@ -126,14 +124,14 @@ async function saveAns() {
             alert("No answer entered");
         } else {
             ans_list[qn - 1] = ans;
-            var resp = await post("save_ans", key, pword = "", ans = ans, qn = qn);
+            var resp = await post("save_ans", getCookie("username"), pword = "", ans = ans, qn = qn);
             if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
             else {console.log(resp);}
         }
     }
 }
 async function getQn() {
-    var resp = await post("get_qn", key, pword = "", ans = "", qn = qn);
+    var resp = await post("get_qn", getCookie("username"), pword = "", ans = "", qn = qn);
     console.log(resp);
     document.getElementById("question-img").src = resp;
 }
