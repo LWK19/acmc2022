@@ -69,7 +69,6 @@ async function login() {
         console.log(resp);
         alert("Response error");
     }
-    // TODO - Secure Login
 }
 async function checkLogin() {
     var resp = await post(meth = "login", getCookie("username"), getCookie("password"));
@@ -82,7 +81,6 @@ async function checkLogin() {
         alert("Response error");
         location.href = "index.html";
     }
-    // TODO - Secure Login
 }
 
 async function getTime() {
@@ -124,7 +122,6 @@ async function start() {
 }
 
 async function getName() {
-    //TODO - change id to passed variable
     var resp = await post("get_name", getCookie("username"),getCookie("password"));
     console.log(resp);
     if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
@@ -181,9 +178,18 @@ async function getQn() {
     } else {
         document.getElementById("question-img").src = resp;
     }
-    
 }
-
+async function getCompletedQn() {
+    var resp = await post("get_completed_qn", getCookie("username"), pword = getCookie("password"));
+    console.log(resp);
+    if (resp == "Incorrect Password") {
+        location.href = "index.html";
+    } else if (resp == "Incorrect Username") {
+        location.href = "index.html";
+    } else {
+        console.log(resp);
+    }
+}
 function changeQn(q) {
     qn = q;
     document.getElementById("question-num").innerHTML = "Question " + qn;
@@ -233,7 +239,6 @@ function enlarge(){
     document.getElementById("img-enlarge").src = document.getElementById("question-img").src;
 }
 function getCookie(cname) {
-    console.log(document.cookie);
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
