@@ -2,6 +2,8 @@ var script = document.createElement('script');
 script.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
 document.getElementsByTagName('head')[0].appendChild(script);
 
+var key = getCookie("usern");
+
 function str_pad_left(string, pad, length) {
     return (new Array(length + 1).join(pad) + string).slice(-length);
 }
@@ -32,6 +34,7 @@ function mainTimer() {
         //send start time to server
     } else {
         time -= 1;
+        // TODO change to 1000ms
         setTimeout(mainTimer, 10);
     }
 }
@@ -57,7 +60,11 @@ async function login() {
     console.log(usern, pword);
     var resp = await post(meth = "login", id = usern, pword = pword);
     if (resp == "Login Success") {
-        location.href = 'instructions.html';
+        document.cookie = "user=John Doe";
+        document.cookie = "username="+usern+";path=/";
+        console.log(document.cookie);
+        setTimeout(console.log(),100000);
+        //location.href = 'instructions.html'
     } else if (resp == "Incorrect Password") {
         document.getElementById("incorrect").innerHTML = "Incorrect Password";
     } else if (resp == "Incorrect Username") {
@@ -71,20 +78,22 @@ async function login() {
 }
 
 async function getTime() {
-    var resp = await post("get_time", "17lee", "", "", "", "inst");
+    var resp = await post("get_time", key, "", "", "", "inst");
     console.log(resp);
     time = parseInt(resp);
     instructTimer();
 }
 
 async function getMainTime() {
-    var resp = await post("get_time", "17lee", "", "", "", "main");
+    var resp = await post("get_time", key, "", "", "", "main");
     console.log(resp);
     time = parseInt(resp);
     mainTimer();
 }
 async function start() {
-    var resp = await post("start_time", "17lee");
+    console.log(document.cookie);
+    console.log(key);
+    var resp = await post("start_time", key);
     console.log(resp);
     if (resp == "Start Time Recorded") { location.href = 'main.html'; }
     else { alert("Error. Reload and try again."); }
@@ -92,11 +101,10 @@ async function start() {
 
 async function getName() {
     //TODO - change id to passed variable
-    var resp = await post("get_name", "17lee");
+    var resp = await post("get_name", key);
     console.log(resp);
     if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
     else { document.getElementById("name").innerHTML = resp; }
-
 }
 
 async function saveAns() {
@@ -107,7 +115,7 @@ async function saveAns() {
         } else if (checked.length == 1) {
             ans = checked[0].value;
             ans_list[qn - 1] = ans;
-            var resp = await post("save_ans", "17lee", pword = "", ans = ans, qn = qn);
+            var resp = await post("save_ans", key, pword = "", ans = ans, qn = qn);
             if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
             else {console.log(resp);}
         } else {
@@ -119,14 +127,14 @@ async function saveAns() {
             alert("No answer entered");
         } else {
             ans_list[qn - 1] = ans;
-            var resp = await post("save_ans", "17lee", pword = "", ans = ans, qn = qn);
+            var resp = await post("save_ans", key, pword = "", ans = ans, qn = qn);
             if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
             else {console.log(resp);}
         }
     }
 }
 async function getQn() {
-    var resp = await post("get_qn", "17lee", pword = "", ans = "", qn = qn);
+    var resp = await post("get_qn", key, pword = "", ans = "", qn = qn);
     console.log(resp);
     document.getElementById("question-img").src = resp;
 }
@@ -179,6 +187,21 @@ function enlarge(){
     document.getElementById("lightbox").style.visibility = "visible";
     document.getElementById("img-enlarge").src = document.getElementById("question-img").src;
 }
-
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+  
 var ans_list = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
 //on submit, check all ans saved again, ignore empty because of reload
