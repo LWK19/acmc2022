@@ -1,7 +1,6 @@
 var script = document.createElement('script');
 script.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
 document.getElementsByTagName('head')[0].appendChild(script);
-var ansqn;
 
 function str_pad_left(string, pad, length) {
     return (new Array(length + 1).join(pad) + string).slice(-length);
@@ -178,17 +177,6 @@ async function getQn() {
         document.getElementById("question-img").src = resp;
     }
 }
-async function getCompletedQn() {
-    var resp = await post("get_completed_qn", getCookie("username"), pword = getCookie("password"));
-    console.log(resp);
-    if (resp == "Incorrect Password") {
-        location.href = "index.html";
-    } else if (resp == "Incorrect Username") {
-        location.href = "index.html";
-    } else {
-        ansqn = resp.split(',');
-    }
-}
 function changeQn(q) {
     qn = q;
     document.getElementById("question-num").innerHTML = "Question " + qn;
@@ -212,16 +200,25 @@ function nextQn() {
     }
     console.log(ans_list);
 }
-function shadeQNum() {
-    getCompletedQn();
-    for (var i = 1; i < 16; i++) {
-        if (ansqn[i - 1] == "1") {
-            document.getElementById("q" + i).style.backgroundColor = 'lightgreen'
-        } else {
-            document.getElementById("q" + i).style.backgroundColor = "";
+async function shadeQNum() {
+    var resp = await post("get_completed_qn", getCookie("username"), pword = getCookie("password"));
+    console.log(resp);
+    if (resp == "Incorrect Password") {
+        location.href = "index.html";
+    } else if (resp == "Incorrect Username") {
+        location.href = "index.html";
+    } else {
+        var ansqn = resp.split(',');
+        for (var i = 1; i < 16; i++) {
+            if (ansqn[i - 1] == "1") {
+                document.getElementById("q" + i).style.backgroundColor = 'lightgreen'
+            } else {
+                document.getElementById("q" + i).style.backgroundColor = "";
+            }
         }
+        document.getElementById("q" + qn).style.backgroundColor = "pink";
     }
-    document.getElementById("q" + qn).style.backgroundColor = "pink";
+    
 }
 
 function toggle_visibility(id, cs) {
