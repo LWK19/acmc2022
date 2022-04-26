@@ -213,6 +213,7 @@ function nextQn() {
     console.log(ans_list);
 }
 function shadeQNum() {
+    getCompletedQn();
     for (var i = 1; i < 16; i++) {
         if (ansqn[i - 1] == "1") {
             document.getElementById("q" + i).style.backgroundColor = 'lightgreen'
