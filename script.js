@@ -2,7 +2,7 @@ var script = document.createElement('script');
 script.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
 document.getElementsByTagName('head')[0].appendChild(script);
 
-var key = getCookie("usern");
+var key = getCookie("username");
 
 function str_pad_left(string, pad, length) {
     return (new Array(length + 1).join(pad) + string).slice(-length);
@@ -60,11 +60,10 @@ async function login() {
     console.log(usern, pword);
     var resp = await post(meth = "login", id = usern, pword = pword);
     if (resp == "Login Success") {
-        document.cookie = "user=John Doe";
         document.cookie = "username="+usern+";path=/";
-        console.log(document.cookie);
-        setTimeout(console.log(),100000);
-        //location.href = 'instructions.html'
+        //console.log(document.cookie);
+        //setTimeout(console.log(),100000);
+        location.href = 'instructions.html'
     } else if (resp == "Incorrect Password") {
         document.getElementById("incorrect").innerHTML = "Incorrect Password";
     } else if (resp == "Incorrect Username") {
@@ -188,6 +187,7 @@ function enlarge(){
     document.getElementById("img-enlarge").src = document.getElementById("question-img").src;
 }
 function getCookie(cname) {
+    console.log(document.cookie);
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
