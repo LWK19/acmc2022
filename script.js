@@ -41,7 +41,7 @@ function mainTimer() {
 async function post(meth, id, pword, ans, qn, timer) {
     document.getElementById("load").classList.remove("hidden");
     document.getElementById("load").classList.add("visible");
-    let key = "AKfycbyvOQ59vBLP30Paqe_5-04zydu4bfRV6GXYclbPLE6p9b4mDErbz5hkIwls4Itwr2iX4Q"
+    let key = "AKfycbx8DAmtWHlmp7QuiL7f31eYKIcc-qs0ox2crzQef3OWxLAqY53nkDljeAcYToLrH2gLCw"
     let url = "https://script.google.com/macros/s/" + key + "/exec";
     var req = await jQuery.ajax({
         crossDomain: true,
