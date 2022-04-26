@@ -58,7 +58,7 @@ async function login() {
     pword = document.getElementById("password").value;
     var resp = await post(meth = "login", id = usern, pword = pword);
     if (resp == "Login Success") {
-        document.cookie = "username="+usern+"password="+pword+ ";max-age=7200;path=/";
+        document.cookie = "username="+usern+";password="+pword+ ";max-age=7200;path=/";
         location.href = 'instructions.html'
     } else if (resp == "Incorrect Password") {
         document.getElementById("incorrect").innerHTML = "Incorrect Password";
