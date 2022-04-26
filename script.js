@@ -87,21 +87,39 @@ async function checkLogin() {
 async function getTime() {
     var resp = await post("get_time", getCookie("username"), getCookie("password"), "", "", "inst");
     console.log(resp);
-    time = parseInt(resp);
+    if (resp == "Incorrect Password") {
+        location.href = "index.html";
+    } else if (resp == "Incorrect Username") {
+        location.href = "index.html";
+    } else {
+        time = parseInt(resp);
     instructTimer();
+    }
+    
 }
 
 async function getMainTime() {
     var resp = await post("get_time", getCookie("username"), getCookie("password"), "", "", "main");
     console.log(resp);
-    time = parseInt(resp);
+    if (resp == "Incorrect Password") {
+        location.href = "index.html";
+    } else if (resp == "Incorrect Username") {
+        location.href = "index.html";
+    } else {
+        time = parseInt(resp);
     mainTimer();
+    }
+    
 }
 async function start() {
     var resp = await post("start_time", getCookie("username"),getCookie("password"));
     console.log(resp);
     if (resp == "Start Time Recorded") { location.href = 'main.html'; }
-    else { alert("Error. Reload and try again."); }
+    else if (resp == "Incorrect Password") {
+        location.href = "index.html";
+    } else if (resp == "Incorrect Username") {
+        location.href = "index.html";
+    } else{ alert("Error. Reload and try again."); }
 }
 
 async function getName() {
@@ -109,7 +127,11 @@ async function getName() {
     var resp = await post("get_name", getCookie("username"),getCookie("password"));
     console.log(resp);
     if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
-    else { document.getElementById("name").innerHTML = resp; }
+    else if (resp == "Incorrect Password") {
+        location.href = "index.html";
+    } else if (resp == "Incorrect Username") {
+        location.href = "index.html";
+    } else{ document.getElementById("name").innerHTML = resp; }
 }
 
 async function saveAns() {
@@ -121,8 +143,13 @@ async function saveAns() {
             ans = checked[0].value;
             ans_list[qn - 1] = ans;
             var resp = await post("save_ans", getCookie("username"), pword = getCookie("password"), ans = ans, qn = qn);
+            console.log(resp);
             if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
-            else {console.log(resp);}
+            else if (resp == "Incorrect Password") {
+                location.href = "index.html";
+            } else if (resp == "Incorrect Username") {
+                location.href = "index.html";
+            }
         } else {
             alert("Error. More than 1 option selected");
         }
@@ -133,15 +160,27 @@ async function saveAns() {
         } else {
             ans_list[qn - 1] = ans;
             var resp = await post("save_ans", getCookie("username"), pword = getCookie("password"), ans = ans, qn = qn);
+            console.log(resp);
             if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
-            else {console.log(resp);}
+            else if (resp == "Incorrect Password") {
+                location.href = "index.html";
+            } else if (resp == "Incorrect Username") {
+                location.href = "index.html";
+            }
         }
     }
 }
 async function getQn() {
     var resp = await post("get_qn", getCookie("username"), pword = getCookie("password"), ans = "", qn = qn);
     console.log(resp);
-    document.getElementById("question-img").src = resp;
+    if (resp == "Incorrect Password") {
+        location.href = "index.html";
+    } else if (resp == "Incorrect Username") {
+        location.href = "index.html";
+    } else {
+        document.getElementById("question-img").src = resp;
+    }
+    
 }
 
 function changeQn(q) {
