@@ -56,12 +56,9 @@ async function post(meth, id, pword, ans, qn, timer) {
 async function login() {
     usern = document.getElementById("username").value;
     pword = document.getElementById("password").value;
-    console.log(usern, pword);
     var resp = await post(meth = "login", id = usern, pword = pword);
     if (resp == "Login Success") {
-        document.cookie = "username="+usern+";path=/";
-        //console.log(document.cookie);
-        //setTimeout(console.log(),100000);
+        document.cookie = "username="+usern+"password="+pword+ ";max-age=7200;path=/";
         location.href = 'instructions.html'
     } else if (resp == "Incorrect Password") {
         document.getElementById("incorrect").innerHTML = "Incorrect Password";
@@ -72,25 +69,36 @@ async function login() {
         alert("Response error");
     }
     // TODO - Secure Login
-
+}
+async function checkLogin() {
+    var resp = await post(meth = "login", getCookie("username"), getCookie("password"));
+    if (resp == "Login Success") {
+    } else if (resp == "Incorrect Password") {
+        location.href = "index.html";
+    } else if (resp == "Incorrect Username") {
+        location.href = "index.html";
+    } else {
+        alert("Response error");
+        location.href = "index.html";
+    }
+    // TODO - Secure Login
 }
 
 async function getTime() {
-    var resp = await post("get_time", getCookie("username"), "", "", "", "inst");
+    var resp = await post("get_time", getCookie("username"), getCookie("password"), "", "", "inst");
     console.log(resp);
     time = parseInt(resp);
     instructTimer();
 }
 
 async function getMainTime() {
-    var resp = await post("get_time", getCookie("username"), "", "", "", "main");
+    var resp = await post("get_time", getCookie("username"), getCookie("password"), "", "", "main");
     console.log(resp);
     time = parseInt(resp);
     mainTimer();
 }
 async function start() {
-    console.log(document.cookie);
-    var resp = await post("start_time", getCookie("username"));
+    var resp = await post("start_time", getCookie("username"),getCookie("password"));
     console.log(resp);
     if (resp == "Start Time Recorded") { location.href = 'main.html'; }
     else { alert("Error. Reload and try again."); }
@@ -98,7 +106,7 @@ async function start() {
 
 async function getName() {
     //TODO - change id to passed variable
-    var resp = await post("get_name", getCookie("username"));
+    var resp = await post("get_name", getCookie("username"),getCookie("password"));
     console.log(resp);
     if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
     else { document.getElementById("name").innerHTML = resp; }
@@ -112,7 +120,7 @@ async function saveAns() {
         } else if (checked.length == 1) {
             ans = checked[0].value;
             ans_list[qn - 1] = ans;
-            var resp = await post("save_ans", getCookie("username"), pword = "", ans = ans, qn = qn);
+            var resp = await post("save_ans", getCookie("username"), pword = getCookie("password"), ans = ans, qn = qn);
             if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
             else {console.log(resp);}
         } else {
@@ -124,14 +132,14 @@ async function saveAns() {
             alert("No answer entered");
         } else {
             ans_list[qn - 1] = ans;
-            var resp = await post("save_ans", getCookie("username"), pword = "", ans = ans, qn = qn);
+            var resp = await post("save_ans", getCookie("username"), pword = getCookie("password"), ans = ans, qn = qn);
             if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
             else {console.log(resp);}
         }
     }
 }
 async function getQn() {
-    var resp = await post("get_qn", getCookie("username"), pword = "", ans = "", qn = qn);
+    var resp = await post("get_qn", getCookie("username"), pword = getCookie("password"), ans = "", qn = qn);
     console.log(resp);
     document.getElementById("question-img").src = resp;
 }
