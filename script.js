@@ -1,7 +1,7 @@
 var script = document.createElement('script');
 script.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
 document.getElementsByTagName('head')[0].appendChild(script);
-
+var ansqn;
 
 function str_pad_left(string, pad, length) {
     return (new Array(length + 1).join(pad) + string).slice(-length);
@@ -33,8 +33,7 @@ function mainTimer() {
         //send start time to server
     } else {
         time -= 1;
-        // TODO change to 1000ms
-        setTimeout(mainTimer, 10);
+        setTimeout(mainTimer, 1000);
     }
 }
 
@@ -58,8 +57,8 @@ async function login() {
     pword = document.getElementById("password").value;
     var resp = await post(meth = "login", id = usern, pword = pword);
     if (resp == "Login Success") {
-        document.cookie = "username="+usern+";max-age=7200;path=/";
-        document.cookie = "password="+pword+";max-age=7200;path=/";
+        document.cookie = "username=" + usern + ";max-age=7200;path=/";
+        document.cookie = "password=" + pword + ";max-age=7200;path=/";
         location.href = 'instructions.html'
     } else if (resp == "Incorrect Password") {
         document.getElementById("incorrect").innerHTML = "Incorrect Password";
@@ -92,9 +91,9 @@ async function getTime() {
         location.href = "index.html";
     } else {
         time = parseInt(resp);
-    instructTimer();
+        instructTimer();
     }
-    
+
 }
 
 async function getMainTime() {
@@ -106,30 +105,30 @@ async function getMainTime() {
         location.href = "index.html";
     } else {
         time = parseInt(resp);
-    mainTimer();
+        mainTimer();
     }
-    
+
 }
 async function start() {
-    var resp = await post("start_time", getCookie("username"),getCookie("password"));
+    var resp = await post("start_time", getCookie("username"), getCookie("password"));
     console.log(resp);
     if (resp == "Start Time Recorded") { location.href = 'main.html'; }
     else if (resp == "Incorrect Password") {
         location.href = "index.html";
     } else if (resp == "Incorrect Username") {
         location.href = "index.html";
-    } else{ alert("Error. Reload and try again."); }
+    } else { alert("Error. Reload and try again."); }
 }
 
 async function getName() {
-    var resp = await post("get_name", getCookie("username"),getCookie("password"));
+    var resp = await post("get_name", getCookie("username"), getCookie("password"));
     console.log(resp);
     if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
     else if (resp == "Incorrect Password") {
         location.href = "index.html";
     } else if (resp == "Incorrect Username") {
         location.href = "index.html";
-    } else{ document.getElementById("name").innerHTML = resp; }
+    } else { document.getElementById("name").innerHTML = resp; }
 }
 
 async function saveAns() {
@@ -151,7 +150,7 @@ async function saveAns() {
         } else {
             alert("Error. More than 1 option selected");
         }
-    }else{
+    } else {
         var ans = document.getElementById('open').value;
         if (ans == null) {
             alert("No answer entered");
@@ -187,7 +186,7 @@ async function getCompletedQn() {
     } else if (resp == "Incorrect Username") {
         location.href = "index.html";
     } else {
-        console.log(resp);
+        ansqn = resp.split(',');
     }
 }
 function changeQn(q) {
@@ -215,7 +214,11 @@ function nextQn() {
 }
 function shadeQNum() {
     for (var i = 1; i < 16; i++) {
-        document.getElementById("q" + i).style.backgroundColor = "";
+        if (ansqn[i - 1] == "1") {
+            document.getElementById("q" + i).style.backgroundColor = 'lightgreen'
+        } else {
+            document.getElementById("q" + i).style.backgroundColor = "";
+        }
     }
     document.getElementById("q" + qn).style.backgroundColor = "pink";
 }
@@ -227,14 +230,14 @@ function toggle_visibility(id, cs) {
         document.getElementById(id).style.display = 'none';
     }
 }
- 
-function submit(){
+
+function submit() {
     document.getElementById('confirmSubmit').classList.remove('visible');
     document.getElementById('confirmSubmit').classList.add('hidden');
     //submit ans
     location.href = 'finish.html';
 }
-function enlarge(){
+function enlarge() {
     document.getElementById("lightbox").style.visibility = "visible";
     document.getElementById("img-enlarge").src = document.getElementById("question-img").src;
 }
@@ -242,17 +245,17 @@ function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
     }
     return "";
-  }
-  
+}
+
 var ans_list = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
 //on submit, check all ans saved again, ignore empty because of reload
