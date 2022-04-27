@@ -182,11 +182,12 @@ async function initQn() {
     } else if (resp == "Incorrect Username") {
         location.href = "index";
     } else {
-        document.cookies = "qn_link=" + resp + ";max-age=7200;path=/";
+        document.cookie = "qn_link=" + resp + ";max-age=7200;path=/";
         changeQn(1);
     }
 }
 function getQn(){
+    console.log()
     var qn_links = JSON.parse(getCookie("qn_link"));
     document.getElementById("question-img").src = qn_links[qn-1];
 }
