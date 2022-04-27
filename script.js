@@ -169,7 +169,10 @@ async function saveAns() {
         if (ans == "") {
             alert("No answer entered");
         } else {
+            var ans_list = JSON.parse(getCookie("ans_local"));
             ans_list[qn - 1] = ans;
+            document.cookie = "ans_local=" + JSON.stringify(ans_list) + ";max-age=7200;path=/";
+            
             var resp = await post("save_ans", getCookie("username"), pword = getCookie("password"), ans = ans, qn = qn);
             console.log(resp);
             if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
