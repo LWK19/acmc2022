@@ -183,6 +183,7 @@ async function initQn() {
         location.href = "index";
     } else {
         document.cookies = "qn_link=" + resp + ";max-age=7200;path=/";
+        changeQn(1);
     }
 }
 function getQn(){
@@ -197,7 +198,6 @@ function changeQn(q) {
         checkbox.checked = false;
     }
     getQn();
-    shadeQNum();
     if (qn < 11) {
         toggle_visibility('input-mcq', 'show');
         toggle_visibility('input-open', 'hide');
