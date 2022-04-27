@@ -111,10 +111,10 @@ async function getMainTime() {
 async function start() {
     var resp = await post("start_time", getCookie("username"), getCookie("password"));
     console.log(resp);
-    if (resp == "Start Time Recorded") { 
+    if (resp == "Start Time Recorded") {
         var ans_list = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
         document.cookie = "ans_local=" + JSON.stringify(ans_list) + ";max-age=7200;path=/";
-        location.href = 'main'; 
+        location.href = 'main';
     }
     else if (resp == "Incorrect Password") {
         location.href = "index";
@@ -145,7 +145,7 @@ async function saveAns() {
             var ans_list = JSON.parse(getCookie("ans_local"));
             ans_list[qn - 1] = ans;
             document.cookie = "ans_local=" + JSON.stringify(ans_list) + ";max-age=7200;path=/";
-            
+
             var resp = await post("save_ans", getCookie("username"), pword = getCookie("password"), ans = ans, qn = qn);
             console.log(resp);
             if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
@@ -183,14 +183,14 @@ async function initQn() {
         location.href = "index";
     } else {
         qnlink = JSON.parse(resp);
-        for(var i=0;i<15;i++){
+        for (var i = 0; i < 15; i++) {
             preload(qnlink[i]);
         }
         changeQn(1);
     }
 }
-function getQn(){
-    document.getElementById("question-img").src = qnlink[qn-1];
+function getQn() {
+    document.getElementById("question-img").src = images[qn - 1];
 }
 function changeQn(q) {
     qn = q;
@@ -234,7 +234,7 @@ async function shadeQNum() {
         }
         document.getElementById("q" + qn).style.backgroundColor = "pink";
     }
-    
+
 }
 
 function toggle_visibility(id, cs) {
@@ -270,10 +270,10 @@ function getCookie(cname) {
     }
     return "";
 }
-function preload(url)
-{
-    var img=new Image();
-    img.src=url;
+var images = [];
+function preload(url) {
+    images[i] = new Image();
+    images[i].src = url;
 }
 
 
