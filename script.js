@@ -1,7 +1,7 @@
 var script = document.createElement('script');
 script.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
 document.getElementsByTagName('head')[0].appendChild(script);
-
+var qnlink;
 function str_pad_left(string, pad, length) {
     return (new Array(length + 1).join(pad) + string).slice(-length);
 }
@@ -182,7 +182,7 @@ async function initQn() {
     } else if (resp == "Incorrect Username") {
         location.href = "index";
     } else {
-        var qnlink = JSON.parse(resp);
+        qnlink = JSON.parse(resp);
         for(var i=0;i<15;i++){
             preload(qnlink[i]);
         }
