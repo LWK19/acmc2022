@@ -237,7 +237,6 @@ async function shadeQNum() {
     }
 
 }
-
 function toggle_visibility(id, cs) {
     if (cs == "show") {
         document.getElementById(id).style.display = 'flex';
@@ -245,7 +244,6 @@ function toggle_visibility(id, cs) {
         document.getElementById(id).style.display = 'none';
     }
 }
-
 function submit() {
     document.getElementById('confirmSubmit').classList.remove('visible');
     document.getElementById('confirmSubmit').classList.add('hidden');
@@ -254,7 +252,7 @@ function submit() {
 }
 function enlarge() {
     document.getElementById("lightbox").style.visibility = "visible";
-    document.getElementById("img-enlarge").src = document.getElementById("question-img").src;
+    document.getElementById("img-enlarge").appendChild(document.getElementById("question-img").firstChild);
 }
 function getCookie(cname) {
     let name = cname + "=";
