@@ -211,6 +211,7 @@ function changeQn(q) {
     for (var checkbox of checkboxes) {
         checkbox.checked = false;
     }
+    document.getElementById('open').value = "";
     getQn();
     if (qn < 11) {
         toggle_visibility('input-mcq', 'show');
