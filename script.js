@@ -196,7 +196,7 @@ async function initQn() {
     }
 }
 function getQn() {
-    document.getElementById("question-img").removeChild(document.getElementById("question-img").firstChild);
+    document.getElementById("question-img").removeChild(document.getElementById("question-img").lastChild);
     document.getElementById("question-img").appendChild(images[qn - 1]);
 }
 function changeQn(q) {
