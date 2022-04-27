@@ -274,6 +274,7 @@ var images = [];
 function preload(url,i) {
     images[i] = new Image();
     images[i].src = url;
+    images[i].style = "max-width: 100%;max-height:100%;";
 }
 
 
