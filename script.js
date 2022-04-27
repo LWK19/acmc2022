@@ -186,7 +186,7 @@ async function initQn() {
     }
 }
 function getQn(){
-    var qn_links = JSON.parse(getCookie(qn_link));
+    var qn_links = JSON.parse(getCookie("qn_link"));
     document.getElementById("question-img").src = qn_links[qn-1];
 }
 function changeQn(q) {
