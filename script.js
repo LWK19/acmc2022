@@ -63,6 +63,8 @@ async function login() {
         document.getElementById("incorrect").innerHTML = "Incorrect Password";
     } else if (resp == "Incorrect Username") {
         document.getElementById("incorrect").innerHTML = "Incorrect Username";
+    } else if(resp == "Time Up"){
+        location.href = "feedback";
     } else {
         console.log(resp);
         alert("Response error");
@@ -75,7 +77,9 @@ async function checkLogin() {
         location.href = "index";
     } else if (resp == "Incorrect Username") {
         location.href = "index";
-    } else {
+    } else if(resp == "Time Up"){
+        location.href = "feedback";
+    }else {
         alert("Response error");
         location.href = "index";
     }
@@ -131,6 +135,8 @@ async function getName() {
         location.href = "index";
     } else if (resp == "Incorrect Username") {
         location.href = "index";
+    } else if(resp == "Time Up"){
+        location.href = "feedback";
     } else { document.getElementById("name").innerHTML = resp; }
 }
 
@@ -253,7 +259,7 @@ function submit() {
 function enlarge() {
     document.getElementById("lightbox").style.visibility = "visible";
     document.getElementById("img-enlarge").removeChild(document.getElementById("img-enlarge").firstChild);
-    document.getElementById("img-enlarge").appendChild(images[qn-1]);
+    document.getElementById("img-enlarge").appendChild(images[qn-1].cloneNode(true));
 }
 function getCookie(cname) {
     let name = cname + "=";
