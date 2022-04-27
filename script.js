@@ -58,7 +58,7 @@ async function login() {
     if (resp == "Login Success") {
         document.cookie = "username=" + usern + ";max-age=7200;path=/";
         document.cookie = "password=" + pword + ";max-age=7200;path=/";
-        location.href = 'instructions.html'
+        location.href = 'instructions'
     } else if (resp == "Incorrect Password") {
         document.getElementById("incorrect").innerHTML = "Incorrect Password";
     } else if (resp == "Incorrect Username") {
@@ -72,12 +72,12 @@ async function checkLogin() {
     var resp = await post(meth = "login", getCookie("username"), getCookie("password"));
     if (resp == "Login Success") {
     } else if (resp == "Incorrect Password") {
-        location.href = "index.html";
+        location.href = "index";
     } else if (resp == "Incorrect Username") {
-        location.href = "index.html";
+        location.href = "index";
     } else {
         alert("Response error");
-        location.href = "index.html";
+        location.href = "index";
     }
 }
 
@@ -85,9 +85,9 @@ async function getTime() {
     var resp = await post("get_time", getCookie("username"), getCookie("password"), "", "", "inst");
     console.log(resp);
     if (resp == "Incorrect Password") {
-        location.href = "index.html";
+        location.href = "index";
     } else if (resp == "Incorrect Username") {
-        location.href = "index.html";
+        location.href = "index";
     } else {
         time = parseInt(resp);
         instructTimer();
@@ -99,9 +99,9 @@ async function getMainTime() {
     var resp = await post("get_time", getCookie("username"), getCookie("password"), "", "", "main");
     console.log(resp);
     if (resp == "Incorrect Password") {
-        location.href = "index.html";
+        location.href = "index";
     } else if (resp == "Incorrect Username") {
-        location.href = "index.html";
+        location.href = "index";
     } else {
         time = parseInt(resp);
         mainTimer();
@@ -111,11 +111,11 @@ async function getMainTime() {
 async function start() {
     var resp = await post("start_time", getCookie("username"), getCookie("password"));
     console.log(resp);
-    if (resp == "Start Time Recorded") { location.href = 'main.html'; }
+    if (resp == "Start Time Recorded") { location.href = 'main'; }
     else if (resp == "Incorrect Password") {
-        location.href = "index.html";
+        location.href = "index";
     } else if (resp == "Incorrect Username") {
-        location.href = "index.html";
+        location.href = "index";
     } else { alert("Error. Reload and try again."); }
 }
 
@@ -124,9 +124,9 @@ async function getName() {
     console.log(resp);
     if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
     else if (resp == "Incorrect Password") {
-        location.href = "index.html";
+        location.href = "index";
     } else if (resp == "Incorrect Username") {
-        location.href = "index.html";
+        location.href = "index";
     } else { document.getElementById("name").innerHTML = resp; }
 }
 
@@ -142,9 +142,9 @@ async function saveAns() {
             console.log(resp);
             if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
             else if (resp == "Incorrect Password") {
-                location.href = "index.html";
+                location.href = "index";
             } else if (resp == "Incorrect Username") {
-                location.href = "index.html";
+                location.href = "index";
             }
         } else {
             alert("Error. More than 1 option selected");
@@ -159,9 +159,9 @@ async function saveAns() {
             console.log(resp);
             if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
             else if (resp == "Incorrect Password") {
-                location.href = "index.html";
+                location.href = "index";
             } else if (resp == "Incorrect Username") {
-                location.href = "index.html";
+                location.href = "index";
             }
         }
     }
@@ -170,9 +170,9 @@ async function getQn() {
     var resp = await post("get_qn", getCookie("username"), pword = getCookie("password"), ans = "", qn = qn);
     console.log(resp);
     if (resp == "Incorrect Password") {
-        location.href = "index.html";
+        location.href = "index";
     } else if (resp == "Incorrect Username") {
-        location.href = "index.html";
+        location.href = "index";
     } else {
         document.getElementById("question-img").src = resp;
     }
@@ -204,9 +204,9 @@ async function shadeQNum() {
     var resp = await post("get_completed_qn", getCookie("username"), pword = getCookie("password"));
     console.log(resp);
     if (resp == "Incorrect Password") {
-        location.href = "index.html";
+        location.href = "index";
     } else if (resp == "Incorrect Username") {
-        location.href = "index.html";
+        location.href = "index";
     } else {
         var ansqn = resp.split(',');
         for (var i = 1; i < 16; i++) {
@@ -233,7 +233,7 @@ function submit() {
     document.getElementById('confirmSubmit').classList.remove('visible');
     document.getElementById('confirmSubmit').classList.add('hidden');
     //submit ans
-    location.href = 'finish.html';
+    location.href = 'finish';
 }
 function enlarge() {
     document.getElementById("lightbox").style.visibility = "visible";
