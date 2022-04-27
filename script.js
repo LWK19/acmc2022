@@ -206,6 +206,7 @@ function changeQn(q) {
     for (var checkbox of checkboxes) {
         checkbox.checked = false;
     }
+    document.getElementById("q" + qn).style.backgroundColor = "pink";
     getQn();
     if (qn < 11) {
         toggle_visibility('input-mcq', 'show');
@@ -239,7 +240,7 @@ async function shadeQNum() {
                 document.getElementById("q" + i).style.backgroundColor = "";
             }
         }
-        document.getElementById("q" + qn).style.backgroundColor = "pink";
+        
     }
 
 }
@@ -280,7 +281,7 @@ var images = [];
 function preload(url,i) {
     images[i] = new Image();
     images[i].src = url;
-    images[i].style = "max-width: 100%;max-height:100%;";
+    images[i].style = "max-width: 100%;max-height:100%;object-fit:cover;";
 }
 
 
