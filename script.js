@@ -206,7 +206,6 @@ function changeQn(q) {
     for (var checkbox of checkboxes) {
         checkbox.checked = false;
     }
-    document.getElementById("q" + qn).style.backgroundColor = "pink";
     getQn();
     if (qn < 11) {
         toggle_visibility('input-mcq', 'show');
