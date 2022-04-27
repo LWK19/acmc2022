@@ -39,7 +39,7 @@ function mainTimer() {
 async function post(meth, id, pword, ans, qn, timer) {
     document.getElementById("load").classList.remove("hidden");
     document.getElementById("load").classList.add("visible");
-    let key = "AKfycbwQHi0lP2NiwvzzX-SLzCvTekXhSy0SsUGrMh6s_0wDMZSvv_fJRoMmV4LybM5ZEWwuUw"
+    let key = "AKfycbwou8u4dCcdfFVt9HvThzQzIjVEs-nmz0HpgWdzV_7QaunsXR1bpvNCoaTSi5Z0N9DdIw"
     let url = "https://script.google.com/macros/s/" + key + "/exec";
     var req = await jQuery.ajax({
         crossDomain: true,
@@ -111,7 +111,11 @@ async function getMainTime() {
 async function start() {
     var resp = await post("start_time", getCookie("username"), getCookie("password"));
     console.log(resp);
-    if (resp == "Start Time Recorded") { location.href = 'main'; }
+    if (resp == "Start Time Recorded") { 
+        var ans_list = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+        document.cookie = "ans_local=" + JSON.stringify(ans_list) + ";max-age=7200;path=/";
+        location.href = 'main'; 
+    }
     else if (resp == "Incorrect Password") {
         location.href = "index";
     } else if (resp == "Incorrect Username") {
@@ -137,7 +141,11 @@ async function saveAns() {
             alert("No answer selected");
         } else if (checked.length == 1) {
             ans = checked[0].value;
+
+            var ans_list = JSON.parse(getCookie("ans_local"));
             ans_list[qn - 1] = ans;
+            document.cookie = "ans_local=" + JSON.stringify(ans_list) + ";max-age=7200;path=/";
+            
             var resp = await post("save_ans", getCookie("username"), pword = getCookie("password"), ans = ans, qn = qn);
             console.log(resp);
             if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
@@ -151,7 +159,7 @@ async function saveAns() {
         }
     } else {
         var ans = document.getElementById('open').value;
-        if (ans == null) {
+        if (ans == "") {
             alert("No answer entered");
         } else {
             ans_list[qn - 1] = ans;
@@ -166,7 +174,7 @@ async function saveAns() {
         }
     }
 }
-async function getQn() {
+async function initQn() {
     var resp = await post("get_qn", getCookie("username"), pword = getCookie("password"), ans = "", qn = qn);
     console.log(resp);
     if (resp == "Incorrect Password") {
@@ -174,8 +182,12 @@ async function getQn() {
     } else if (resp == "Incorrect Username") {
         location.href = "index";
     } else {
-        document.getElementById("question-img").src = resp;
+        document.cookies = "qn_link=" + resp + ";max-age=7200;path=/";
     }
+}
+function getQn(){
+    var qn_links = JSON.parse(getCookie(qn_link));
+    document.getElementById("question-img").src = qn_links[qn-1];
 }
 function changeQn(q) {
     qn = q;
@@ -211,7 +223,9 @@ async function shadeQNum() {
         var ansqn = resp.split(',');
         for (var i = 1; i < 16; i++) {
             if (ansqn[i - 1] == "1") {
-                document.getElementById("q" + i).style.backgroundColor = 'lightgreen'
+                document.getElementById("q" + i).style.backgroundColor = 'lightgreen';
+                // TODO ans_list if needed
+                //if (ans_list[i-1] == "") {ans_list[i-1]==1;}
             } else {
                 document.getElementById("q" + i).style.backgroundColor = "";
             }
@@ -255,5 +269,5 @@ function getCookie(cname) {
     return "";
 }
 
-var ans_list = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+
 //on submit, check all ans saved again, ignore empty because of reload
