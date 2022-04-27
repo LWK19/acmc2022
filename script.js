@@ -180,6 +180,7 @@ async function saveAns() {
             }
         }
     }
+    shadeQNum();
 }
 async function initQn() {
     var resp = await post("get_qn", getCookie("username"), pword = getCookie("password"), ans = "", qn = qn);
