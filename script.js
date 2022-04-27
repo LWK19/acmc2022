@@ -190,7 +190,7 @@ async function initQn() {
     }
 }
 function getQn() {
-    document.getElementById("question-img").src = images[qn - 1];
+    document.getElementById("question-img").src = images[qn - 1].src;
 }
 function changeQn(q) {
     qn = q;
