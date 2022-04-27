@@ -252,6 +252,7 @@ function submit() {
 }
 function enlarge() {
     document.getElementById("lightbox").style.visibility = "visible";
+    document.getElementById("img-enlarge").removeChild(document.getElementById("img-enlarge").firstChild);
     document.getElementById("img-enlarge").appendChild(images[qn-1]);
 }
 function getCookie(cname) {
