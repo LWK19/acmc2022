@@ -70,6 +70,7 @@ async function login() {
         alert("Response error");
     }
 }
+//TODO - seems useless
 async function checkLogin() {
     var resp = await post(meth = "login", getCookie("username"), getCookie("password"));
     if (resp == "Login Success") {
@@ -280,7 +281,7 @@ var images = [];
 function preload(url,i) {
     images[i] = new Image();
     images[i].src = url;
-    images[i].style = "max-width: 100%;max-height:100%;object-fit:cover;";
+    images[i].style = "max-width: 100%;max-height:100%;object-fit:cover;margin:auto";
 }
 
 
