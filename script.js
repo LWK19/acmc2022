@@ -182,14 +182,15 @@ async function initQn() {
     } else if (resp == "Incorrect Username") {
         location.href = "index";
     } else {
-        document.cookie = "qn_link=" + resp + ";max-age=7200;path=/";
+        var qnlink = JSON.parse(resp);
+        for(var i=0;i<15;i++){
+            preload(qnlink[i]);
+        }
         changeQn(1);
     }
 }
 function getQn(){
-    console.log()
-    var qn_links = JSON.parse(getCookie("qn_link"));
-    document.getElementById("question-img").src = qn_links[qn-1];
+    //document.getElementById("question-img").src = ;
 }
 function changeQn(q) {
     qn = q;
@@ -268,6 +269,11 @@ function getCookie(cname) {
         }
     }
     return "";
+}
+function preload(url)
+{
+    var img=new Image();
+    img.src=url;
 }
 
 
