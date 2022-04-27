@@ -184,7 +184,7 @@ async function initQn() {
     } else {
         qnlink = JSON.parse(resp);
         for (var i = 0; i < 15; i++) {
-            preload(qnlink[i]);
+            preload(qnlink[i],i);
         }
         changeQn(1);
     }
@@ -271,7 +271,7 @@ function getCookie(cname) {
     return "";
 }
 var images = [];
-function preload(url) {
+function preload(url,i) {
     images[i] = new Image();
     images[i].src = url;
 }
