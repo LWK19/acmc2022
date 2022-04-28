@@ -251,7 +251,7 @@ async function shadeQNum() {
                 document.getElementById("q" + i).style.backgroundColor = '';
             } else {
                 document.cookie = "ans_local=" + JSON.stringify(ansqn) + ";max-age=7200;path=/";
-                document.getElementById("q" + i).style.backgroundColor = "lightgreen";
+                document.getElementById("q" + i).style.backgroundColor = "#55E679";
             }
         }
         
