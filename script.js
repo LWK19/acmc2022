@@ -211,7 +211,14 @@ function changeQn(q) {
     for (var checkbox of checkboxes) {
         checkbox.checked = false;
     }
-    document.getElementById('open').value = "";
+    var ans_list = JSON.parse(getCookie("ans_local"));
+    if(qn>10){
+        document.getElementById('open').value = ans_list[qn-1];
+    }else{
+        //check the checkbox corresponds to .value = ans_list[qn-1]
+        document.getElementById("opt"+ans_list[qn-1]).checked = true;
+    }
+    
     getQn();
     if (qn < 11) {
         toggle_visibility('input-mcq', 'show');
