@@ -240,7 +240,7 @@ async function shadeQNum() {
             if (ansqn[i - 1] == "") {
                 document.getElementById("q" + i).style.backgroundColor = '';
             } else {
-                document.cookie = "ans_local=" + JSON.stringify(ans_qn) + ";max-age=7200;path=/";
+                document.cookie = "ans_local=" + JSON.stringify(ansqn) + ";max-age=7200;path=/";
                 document.getElementById("q" + i).style.backgroundColor = "lightgreen";
             }
         }
