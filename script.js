@@ -39,7 +39,7 @@ function mainTimer() {
 async function post(meth, id, pword, ans, qn, timer) {
     document.getElementById("load").classList.remove("hidden");
     document.getElementById("load").classList.add("visible");
-    let key = "AKfycbwou8u4dCcdfFVt9HvThzQzIjVEs-nmz0HpgWdzV_7QaunsXR1bpvNCoaTSi5Z0N9DdIw"
+    let key = "AKfycbzMhhWsNLOj8biGtUV_4ABLYnh9-miJQDwCz_0-WuHRYjPb6N74GV_N7TvLh_a5HUg_Lg"
     let url = "https://script.google.com/macros/s/" + key + "/exec";
     var req = await jQuery.ajax({
         crossDomain: true,
@@ -71,7 +71,7 @@ async function login() {
     }
 }
 //TODO - seems useless
-async function checkLogin() {
+/*async function checkLogin() {
     var resp = await post(meth = "login", getCookie("username"), getCookie("password"));
     if (resp == "Login Success") {
     } else if (resp == "Incorrect Password") {
@@ -84,7 +84,7 @@ async function checkLogin() {
         alert("Response error");
         location.href = "index";
     }
-}
+}*/
 
 async function getTime() {
     var resp = await post("get_time", getCookie("username"), getCookie("password"), "", "", "inst");
@@ -237,12 +237,11 @@ async function shadeQNum() {
     } else {
         var ansqn = resp.split(',');
         for (var i = 1; i < 16; i++) {
-            if (ansqn[i - 1] == "1") {
-                document.getElementById("q" + i).style.backgroundColor = 'lightgreen';
-                // TODO ans_list if needed
-                //if (ans_list[i-1] == "") {ans_list[i-1]==1;}
+            if (ansqn[i - 1] == "") {
+                document.getElementById("q" + i).style.backgroundColor = '';
             } else {
-                document.getElementById("q" + i).style.backgroundColor = "";
+                document.cookie = "ans_local=" + JSON.stringify(ans_qn) + ";max-age=7200;path=/";
+                document.getElementById("q" + i).style.backgroundColor = "lightgreen";
             }
         }
         
@@ -289,5 +288,5 @@ function preload(url,i) {
     images[i].style = "max-width: 100%;max-height:100%;object-fit:cover;margin:auto";
 }
 
-
+//TODO - GET ANSWERS FROM SERVER
 //on submit, check all ans saved again, ignore empty because of reload
