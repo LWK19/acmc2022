@@ -216,8 +216,11 @@ function changeQn(q) {
         document.getElementById('open').value = ans_list[qn-1];
     }else{
         //check the checkbox corresponds to .value = ans_list[qn-1]
+        if(ans_list[qn-1] != ""){
         document.getElementById("opt"+ans_list[qn-1]).checked = true;
+        }
     }
+
     
     getQn();
     if (qn < 11) {
