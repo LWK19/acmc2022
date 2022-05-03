@@ -52,8 +52,8 @@ async function post(meth, id, pword, ans, qn, timer) {
     return req;
 }
 async function login() {
-    usern = document.getElementById("username").value.replace(/\s/g,'');
-    pword = document.getElementById("password").value.replace(/\s/g,'');
+    usern = document.getElementById("username").value.replace(/\s/g, '');
+    pword = document.getElementById("password").value.replace(/\s/g, '');
     var resp = await post(meth = "login", id = usern, pword = pword);
     if (resp == "Login Success") {
         document.cookie = "username=" + usern + ";max-age=7200;path=/";
@@ -63,7 +63,7 @@ async function login() {
         document.getElementById("incorrect").innerHTML = "Incorrect Password";
     } else if (resp == "Incorrect Username") {
         document.getElementById("incorrect").innerHTML = "Incorrect Username";
-    } else if(resp == "Time Up"){
+    } else if (resp == "Time Up") {
         location.href = "feedback";
     } else {
         console.log(resp);
@@ -121,7 +121,7 @@ async function getName() {
         location.href = "index";
     } else if (resp == "Incorrect Username") {
         location.href = "index";
-    } else if(resp == "Time Up"){
+    } else if (resp == "Time Up") {
         location.href = "feedback";
     } else { document.getElementById("name").innerHTML = resp; }
 }
@@ -150,14 +150,10 @@ async function saveAns() {
             alert("Error. More than 1 option selected");
         }
     } else {
-        var ans = document.getElementById('open').value.replace(/\s/g,'');
+        var ans = document.getElementById('open').value.replace(/\s/g, '');
         if (ans == "") {
             alert("No answer entered");
         } else {
-            var ans_list = JSON.parse(getCookie("ans_local"));
-            ans_list[qn - 1] = ans;
-            document.cookie = "ans_local=" + JSON.stringify(ans_list) + ";max-age=7200;path=/";
-            
             var resp = await post("save_ans", getCookie("username"), pword = getCookie("password"), ans = ans, qn = qn);
             console.log(resp);
             if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
@@ -165,6 +161,12 @@ async function saveAns() {
                 location.href = "index";
             } else if (resp == "Incorrect Username") {
                 location.href = "index";
+            } else if (resp == "Error: Input Not Number") {
+                alert("Input Error. Try Again.");
+            } else {
+                var ans_list = JSON.parse(getCookie("ans_local"));
+                ans_list[qn - 1] = ans;
+                document.cookie = "ans_local=" + JSON.stringify(ans_list) + ";max-age=7200;path=/";
             }
         }
     }
@@ -180,7 +182,7 @@ async function initQn() {
     } else {
         qnlink = JSON.parse(resp);
         for (var i = 0; i < 15; i++) {
-            preload(qnlink[i],i);
+            preload(qnlink[i], i);
         }
         changeQn(1);
     }
@@ -197,7 +199,7 @@ function changeQn(q) {
         checkbox.checked = false;
     }
     showAns();
-    
+
     getQn();
     if (qn < 11) {
         toggle_visibility('input-mcq', 'show');
@@ -215,12 +217,12 @@ function nextQn() {
 }
 function showAns() {
     var ans_list = JSON.parse(getCookie("ans_local"));
-    if(qn>10){
-        document.getElementById('open').value = ans_list[qn-1];
-    }else{
+    if (qn > 10) {
+        document.getElementById('open').value = ans_list[qn - 1];
+    } else {
         //check the checkbox corresponds to .value = ans_list[qn-1]
-        if(ans_list[qn-1] != ""){
-            document.getElementById("opt"+ans_list[qn-1]).checked = true;
+        if (ans_list[qn - 1] != "") {
+            document.getElementById("opt" + ans_list[qn - 1]).checked = true;
         }
     }
 }
@@ -243,7 +245,7 @@ async function shadeQNum() {
             }
         }
         showAns();
-        
+
     }
 
 }
@@ -263,7 +265,7 @@ function submit() {
 function enlarge() {
     document.getElementById("lightbox").style.visibility = "visible";
     document.getElementById("img-enlarge").removeChild(document.getElementById("img-enlarge").firstChild);
-    document.getElementById("img-enlarge").appendChild(images[qn-1].cloneNode(true));
+    document.getElementById("img-enlarge").appendChild(images[qn - 1].cloneNode(true));
 }
 function getCookie(cname) {
     let name = cname + "=";
@@ -281,7 +283,7 @@ function getCookie(cname) {
     return "";
 }
 var images = [];
-function preload(url,i) {
+function preload(url, i) {
     images[i] = new Image();
     images[i].src = url;
     images[i].style = "max-width: 100%;max-height:100%;object-fit:cover;margin:auto";
