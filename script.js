@@ -211,16 +211,7 @@ function changeQn(q) {
     for (var checkbox of checkboxes) {
         checkbox.checked = false;
     }
-    var ans_list = JSON.parse(getCookie("ans_local"));
-    if(qn>10){
-        document.getElementById('open').value = ans_list[qn-1];
-    }else{
-        //check the checkbox corresponds to .value = ans_list[qn-1]
-        if(ans_list[qn-1] != ""){
-        document.getElementById("opt"+ans_list[qn-1]).checked = true;
-        }
-    }
-
+    showAns();
     
     getQn();
     if (qn < 11) {
@@ -237,6 +228,18 @@ function nextQn() {
     }
     console.log(ans_list);
 }
+function showAns() {
+    var ans_list = JSON.parse(getCookie("ans_local"));
+    if(qn>10){
+        document.getElementById('open').value = ans_list[qn-1];
+    }else{
+        //check the checkbox corresponds to .value = ans_list[qn-1]
+        if(ans_list[qn-1] != ""){
+            document.getElementById("opt"+ans_list[qn-1]).checked = true;
+        }
+    }
+}
+
 async function shadeQNum() {
     var resp = await post("get_completed_qn", getCookie("username"), pword = getCookie("password"));
     console.log(resp);
@@ -254,6 +257,7 @@ async function shadeQNum() {
                 document.getElementById("q" + i).style.backgroundColor = "#55E679";
             }
         }
+        showAns();
         
     }
 
