@@ -39,7 +39,7 @@ function mainTimer() {
 async function post(meth, id, pword, ans, qn, timer) {
     document.getElementById("load").classList.remove("hidden");
     document.getElementById("load").classList.add("visible");
-    let key = "AKfycbwMNSUfqn1frwAORx2ECl7dbv64ZQLd6FQfxoYaeohZZTEc7OIEoayEwMGvWd5w9Mnv";
+    let key = "AKfycby_xThblGW3E0PpOf0CgU7iiAUbQBx5vMhkoyj8mTFp0D_i3iEqc_YfhPFyxd9Y5X8_";
     let url = "https://script.google.com/macros/s/" + key + "/exec";
     var req = await jQuery.ajax({
         crossDomain: true,
@@ -52,8 +52,8 @@ async function post(meth, id, pword, ans, qn, timer) {
     return req;
 }
 async function login() {
-    usern = document.getElementById("username").value;
-    pword = document.getElementById("password").value;
+    usern = document.getElementById("username").value.replace(/\s/g,'');
+    pword = document.getElementById("password").value.replace(/\s/g,'');
     var resp = await post(meth = "login", id = usern, pword = pword);
     if (resp == "Login Success") {
         document.cookie = "username=" + usern + ";max-age=7200;path=/";
@@ -70,21 +70,6 @@ async function login() {
         alert("Response error");
     }
 }
-//TODO - seems useless
-/*async function checkLogin() {
-    var resp = await post(meth = "login", getCookie("username"), getCookie("password"));
-    if (resp == "Login Success") {
-    } else if (resp == "Incorrect Password") {
-        location.href = "index";
-    } else if (resp == "Incorrect Username") {
-        location.href = "index";
-    } else if(resp == "Time Up"){
-        location.href = "feedback";
-    }else {
-        alert("Response error");
-        location.href = "index";
-    }
-}*/
 
 async function getTime() {
     var resp = await post("get_time", getCookie("username"), getCookie("password"), "", "", "inst");
@@ -165,7 +150,7 @@ async function saveAns() {
             alert("Error. More than 1 option selected");
         }
     } else {
-        var ans = document.getElementById('open').value;
+        var ans = document.getElementById('open').value.replace(/\s/g,'');
         if (ans == "") {
             alert("No answer entered");
         } else {
@@ -302,5 +287,4 @@ function preload(url,i) {
     images[i].style = "max-width: 100%;max-height:100%;object-fit:cover;margin:auto";
 }
 
-//TODO - GET ANSWERS FROM SERVER
 //on submit, check all ans saved again, ignore empty because of reload
