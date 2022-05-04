@@ -213,7 +213,6 @@ function nextQn() {
     if (qn < 15) {
         changeQn(qn + 1);
     }
-    console.log(ans_list);
 }
 function showAns() {
     var ans_list = JSON.parse(getCookie("ans_local"));
