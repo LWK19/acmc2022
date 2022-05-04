@@ -29,7 +29,7 @@ function mainTimer() {
     document.getElementById("clock").innerHTML = hours + ':' + str_pad_left(mins, '0', 2) + ':' + str_pad_left(secs, '0', 2);
     document.getElementById("progress").style.width = time * 150 / tsec + "px";
     if (time < 1) {
-        //send start time to server
+        location.href = 'finish';
     } else {
         time -= 1;
         setTimeout(mainTimer, 1000);
@@ -39,7 +39,7 @@ function mainTimer() {
 async function post(meth, id, pword, ans, qn, timer) {
     document.getElementById("load").classList.remove("hidden");
     document.getElementById("load").classList.add("visible");
-    let key = "AKfycbzAw4jSCatbHwFgBuOb4vzSdXoDgX5Ao4XVCGU8g-BFxy-JYVE0Y7ISxS-6NE5OyvQAvg";
+    let key = "AKfycby3k1u6MJDUg4rpWb74blqmdQ8GEjAxL7Hmkf9h2PTHUoFDu00qlj-_8wveum0WZx-SLQ";
     let url = "https://script.google.com/macros/s/" + key + "/exec";
     var req = await jQuery.ajax({
         crossDomain: true,
