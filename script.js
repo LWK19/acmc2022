@@ -125,7 +125,10 @@ async function getName() {
         location.href = "feedback";
     } else { document.getElementById("name").innerHTML = resp; }
 }
-
+async function saveNgo(){
+    await saveAns();
+    nextQn();
+}
 async function saveAns() {
     if (qn < 11) {
         var checked = document.querySelectorAll('input[type=checkbox]:checked');
