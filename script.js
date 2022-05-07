@@ -30,7 +30,7 @@ function instructTimer() {
 
 function mainTimer() {
     //TODO - CHANGE tsec
-    var tsec = 90 * 60;
+    var tsec = 15 * 60;
     var hours = Math.floor(time / 3600);
     var mins = Math.floor(time % 3600 / 60);
     var secs = Math.floor(time % 60);
