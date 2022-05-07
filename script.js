@@ -7,8 +7,8 @@ function str_pad_left(string, pad, length) {
 }
 
 function instructTimer() {
-    var days = Math.floor(time % 86400);
-    var hours = Math.floor(time % 3600);
+    var days = Math.floor(time / 86400);
+    var hours = Math.floor(time % 86400 / 3600);
     var mins = Math.floor(time % 3600 / 60);
     var secs = Math.floor(time % 60);
     var str = "";
