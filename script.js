@@ -14,6 +14,7 @@ function instructTimer() {
     var str = "";
     if(days>0){
         str = days + ':';
+        
     }
     str = str + hours + ':' + str_pad_left(mins, '0', 2) + ':' + str_pad_left(secs, '0', 2);
     document.getElementById("startBtn").innerHTML = str;
