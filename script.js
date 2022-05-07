@@ -12,7 +12,7 @@ function instructTimer() {
     var mins = Math.floor(time % 3600 / 60);
     var secs = Math.floor(time % 60);
     var str = "";
-    if(days>0){
+    if (days > 0) {
         str = days + ':';
 
     }
@@ -47,7 +47,8 @@ function mainTimer() {
 async function post(meth, id, pword, ans, qn, timer) {
     document.getElementById("load").classList.remove("hidden");
     document.getElementById("load").classList.add("visible");
-    let key = "AKfycbzJevBRqu4F1bOEv7P-D7bUDK_nYCoh8OpTEl8Ewi7riLPNroxnex7cdpI9wH46FPjiIw";
+    //let key = "AKfycbzJevBRqu4F1bOEv7P-D7bUDK_nYCoh8OpTEl8Ewi7riLPNroxnex7cdpI9wH46FPjiIw";
+    let key = "AKfycbxMP99JXZCGTcgvrpOtYnUQXT8TGn9mi631WXktfFXLxjuzfuJXc4FIoqsE47YaqGyyfQ";
     let url = "https://script.google.com/macros/s/" + key + "/exec";
     var req = await jQuery.ajax({
         crossDomain: true,
@@ -71,6 +72,8 @@ async function login() {
         document.getElementById("incorrect").innerHTML = "Incorrect Password";
     } else if (resp == "Incorrect Username") {
         document.getElementById("incorrect").innerHTML = "Incorrect Username";
+    } else if (resp == "Competition Over") {
+        location.href = "finish";
     } else if (resp == "Time Up") {
         location.href = "feedback";
     } else {
@@ -86,6 +89,8 @@ async function getTime() {
         location.href = "index";
     } else if (resp == "Incorrect Username") {
         location.href = "index";
+    } else if (resp == "Competition Over") {
+        location.href = "finish";
     } else {
         time = parseInt(resp);
         instructTimer();
@@ -102,6 +107,8 @@ async function getMainTime() {
         location.href = "index";
     } else if (resp == "Error. Start Quiz") {
         location.href = "instructions";
+    } else if (resp == "Competition Over") {
+        location.href = "finish";
     } else if (resp == "Time is Up") {
         alert("Time's Up!");
         location.href = "finish";
@@ -125,6 +132,8 @@ async function start() {
         location.href = "index";
     } else if (resp == "Incorrect Username") {
         location.href = "index";
+    } else if (resp == "Competition Over") {
+        location.href = "finish";
     } else { alert("Error. Reload and try again."); }
 }
 
@@ -138,12 +147,11 @@ async function getName() {
         location.href = "index";
     } else if (resp == "Time Up") {
         location.href = "feedback";
+    } else if (resp == "Competition Over") {
+        location.href = "finish";
     } else { document.getElementById("name").innerHTML = resp; }
 }
-async function saveNgo(){
-    await saveAns();
-    nextQn();
-}
+
 async function saveAns() {
     if (qn < 11) {
         var checked = document.querySelectorAll('input[type=checkbox]:checked');
@@ -152,10 +160,6 @@ async function saveAns() {
         } else if (checked.length == 1) {
             ans = checked[0].value;
 
-            var ans_list = JSON.parse(getCookie("ans_local"));
-            ans_list[qn - 1] = ans;
-            document.cookie = "ans_local=" + JSON.stringify(ans_list) + ";max-age=7200;path=/";
-
             var resp = await post("save_ans", getCookie("username"), pword = getCookie("password"), ans = ans, qn = qn);
             console.log(resp);
             if (resp == "Error: ID Not Found") { alert("Error: ID Not Found"); }
@@ -163,6 +167,15 @@ async function saveAns() {
                 location.href = "index";
             } else if (resp == "Incorrect Username") {
                 location.href = "index";
+            } else if (resp == "Competition Over") {
+                location.href = "finish";
+            } else {
+                var ans_list = JSON.parse(getCookie("ans_local"));
+                ans_list[qn - 1] = ans;
+                document.cookie = "ans_local=" + JSON.stringify(ans_list) + ";max-age=7200;path=/";
+
+                shadeQNum();
+                nextQn();
             }
         } else {
             alert("Error. More than 1 option selected");
@@ -179,16 +192,20 @@ async function saveAns() {
                 location.href = "index";
             } else if (resp == "Incorrect Username") {
                 location.href = "index";
+            } else if (resp == "Competition Over") {
+                location.href = "finish";
             } else if (resp == "Error: Input Not Number") {
                 alert("Input Error. Try Again.");
             } else {
                 var ans_list = JSON.parse(getCookie("ans_local"));
                 ans_list[qn - 1] = ans;
                 document.cookie = "ans_local=" + JSON.stringify(ans_list) + ";max-age=7200;path=/";
+                shadeQNum();
+                nextQn();
             }
         }
     }
-    shadeQNum();
+
 }
 async function initQn() {
     var resp = await post("get_qn", getCookie("username"), pword = getCookie("password"), ans = "", qn = qn);
@@ -197,6 +214,8 @@ async function initQn() {
         location.href = "index";
     } else if (resp == "Incorrect Username") {
         location.href = "index";
+    } else if (resp == "Competition Over") {
+        location.href = "finish";
     } else {
         qnlink = JSON.parse(resp);
         for (var i = 0; i < 15; i++) {
@@ -251,6 +270,8 @@ async function shadeQNum() {
         location.href = "index";
     } else if (resp == "Incorrect Username") {
         location.href = "index";
+    } else if (resp == "Competition Over") {
+        location.href = "finish";
     } else {
         var ansqn = resp.split(',');
         for (var i = 1; i < 16; i++) {
