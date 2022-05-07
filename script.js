@@ -39,7 +39,7 @@ function mainTimer() {
 async function post(meth, id, pword, ans, qn, timer) {
     document.getElementById("load").classList.remove("hidden");
     document.getElementById("load").classList.add("visible");
-    let key = "AKfycby3k1u6MJDUg4rpWb74blqmdQ8GEjAxL7Hmkf9h2PTHUoFDu00qlj-_8wveum0WZx-SLQ";
+    let key = "AKfycbzA_chnwyFKZvm2jqfgzM0_F6NAWV2AnE_1zDvo_ejMsJkJubUtR3e_9d-g2RnsD4cu-Q";
     let url = "https://script.google.com/macros/s/" + key + "/exec";
     var req = await jQuery.ajax({
         crossDomain: true,
@@ -92,6 +92,13 @@ async function getMainTime() {
         location.href = "index";
     } else if (resp == "Incorrect Username") {
         location.href = "index";
+    } else if (resp == "Error. Start Quiz") {
+        location.href = "instructions";
+    } else if (resp == "Time is Up") {
+        alert("Time's Up!");
+        location.href = "finish";
+    } else if (resp == "Not Started") {
+        location.href = "instructions";
     } else {
         time = parseInt(resp);
         mainTimer();
