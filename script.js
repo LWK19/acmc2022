@@ -7,10 +7,16 @@ function str_pad_left(string, pad, length) {
 }
 
 function instructTimer() {
+    var days = Math.floor(time / 86400);
     var hours = Math.floor(time / 3600);
     var mins = Math.floor(time % 3600 / 60);
     var secs = Math.floor(time % 60);
-    document.getElementById("startBtn").innerHTML = hours + ':' + str_pad_left(mins, '0', 2) + ':' + str_pad_left(secs, '0', 2);
+    var str = "";
+    if(days>0){
+        str = days + ':';
+    }
+    str = str + hours + ':' + str_pad_left(mins, '0', 2) + ':' + str_pad_left(secs, '0', 2);
+    document.getElementById("startBtn").innerHTML = str;
     if (time < 1) {
         document.getElementById("startBtn").innerHTML = "Start Quiz";
         document.getElementById("startBtn").disabled = false;
