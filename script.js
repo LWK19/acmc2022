@@ -29,6 +29,7 @@ function instructTimer() {
 }
 
 function mainTimer() {
+    //TODO - CHANGE tsec
     var tsec = 90 * 60;
     var hours = Math.floor(time / 3600);
     var mins = Math.floor(time % 3600 / 60);
@@ -46,7 +47,7 @@ function mainTimer() {
 async function post(meth, id, pword, ans, qn, timer) {
     document.getElementById("load").classList.remove("hidden");
     document.getElementById("load").classList.add("visible");
-    let key = "AKfycbzA_chnwyFKZvm2jqfgzM0_F6NAWV2AnE_1zDvo_ejMsJkJubUtR3e_9d-g2RnsD4cu-Q";
+    let key = "AKfycbzJevBRqu4F1bOEv7P-D7bUDK_nYCoh8OpTEl8Ewi7riLPNroxnex7cdpI9wH46FPjiIw";
     let url = "https://script.google.com/macros/s/" + key + "/exec";
     var req = await jQuery.ajax({
         crossDomain: true,
