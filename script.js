@@ -42,6 +42,31 @@ function mainTimer() {
     }
 }
 
+async function updateTime(){
+    var resp = await post("get_time", getCookie("username"), getCookie("password"), "", "", "main");
+    console.log(resp);
+    if (resp == "Incorrect Password") {
+        location.href = "index";
+    } else if (resp == "Incorrect Username") {
+        location.href = "index";
+    } else if (resp == "Error. Start Quiz") {
+        location.href = "instructions";
+    } else if (resp == "Competition Over") {
+        location.href = "finish";
+    } else if (resp == "Time is Up") {
+        alert("Time's Up!");
+        location.href = "finish";
+    } else if (resp == "Not Started") {
+        location.href = "instructions";
+    } else {
+        time = parseInt(resp);
+        days = Math.floor(time / 86400);
+        hours = Math.floor(time % 86400 / 3600);
+        mins = Math.floor(time % 3600 / 60);
+        secs = Math.floor(time % 60);
+    }
+}
+
 async function post(meth, id, pword, ans, qn, timer) {
     document.getElementById("load").classList.remove("hidden");
     document.getElementById("load").classList.add("visible");
