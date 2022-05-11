@@ -37,11 +37,11 @@ function mainTimer() {
         var elapsed = now - mainStarts;
         var timeleft = time - elapsed;
         var tsec = 60 * 60;
-        var hours = Math.floor(time / 3600);
-        var mins = Math.floor(time % 3600 / 60);
-        var secs = Math.floor(time % 60);
+        var hours = Math.floor(timeleft / 3600);
+        var mins = Math.floor(timeleft % 3600 / 60);
+        var secs = Math.floor(timeleft % 60);
         document.getElementById("clock").innerHTML = hours + ':' + str_pad_left(mins, '0', 2) + ':' + str_pad_left(secs, '0', 2);
-        document.getElementById("progress").style.width = time * 150 / tsec + "px";
+        document.getElementById("progress").style.width = timeleft * 150 / tsec + "px";
         
         if (timeleft < 1) {
             clearInterval(mainInterval);
