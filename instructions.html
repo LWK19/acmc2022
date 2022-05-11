@@ -22,12 +22,13 @@
         <hr color="black" style="border-width:0.5px">
         <!--TODO change instructions-->
         <ul>
-            <li>You have 1 hour for this competition. The timer will begin when "Start Quiz" is pressed.
-            </li>
+            <li>You have 1 hour for this competition. The timer will begin when "Start Quiz" is pressed.</li>
             <li>There are 15 questions in total.</li>
-            <li>Each question will be in a multiple choice format with 5 options.</li>
-            <li>Each correct answer will award 3 marks. There is no penalty for incorrect answers.</li>
-            <li>Calculators are strictly not allowed.</li>
+            <li>The first 10 questions will be in a multiple choice format with 5 options. Each correct answer will award 2 marks.</li>
+            <li>The next 5 questions will be open ended. Each correct answer will award 3 marks.</li>
+            <li>There is no penalty for incorrect answers.</li>
+            <li>This is an open book test. Calculators are allowed.</li>
+            <li>Please click on "Save and Next" after you have selected or entered your answer. You can change the answers anytime during the competition. Unsaved answers will not be marked.</li>
         </ul>
         <hr color="black" style="border-width:0.5px">
         <div>
@@ -49,5 +50,6 @@
 <script>
     getName();
     getTime();
-    window.addEventListener("focus",test);
+    window.addEventListener("focus",getTime);
+    
 </script>
