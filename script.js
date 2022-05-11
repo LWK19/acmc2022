@@ -66,10 +66,6 @@ async function updateMainTime() {
         location.href = "instructions";
     } else {
         time = parseInt(resp);
-        days = Math.floor(time / 86400);
-        hours = Math.floor(time % 86400 / 3600);
-        mins = Math.floor(time % 3600 / 60);
-        secs = Math.floor(time % 60);
     }
 }
 async function updateTime() {
@@ -83,10 +79,6 @@ async function updateTime() {
         location.href = "finish";
     } else {
         time = parseInt(resp);
-        days = Math.floor(time / 86400);
-        hours = Math.floor(time % 86400 / 3600);
-        mins = Math.floor(time % 3600 / 60);
-        secs = Math.floor(time % 60);
     }
 }
 
