@@ -14,14 +14,13 @@ function instructTimer() {
     var str = "";
     if (days > 0) {
         str = days + ':';
-
     }
     str = str + hours + ':' + str_pad_left(mins, '0', 2) + ':' + str_pad_left(secs, '0', 2);
     document.getElementById("startBtn").innerHTML = str;
     if (time < 1) {
         document.getElementById("startBtn").innerHTML = "Start Quiz";
         document.getElementById("startBtn").disabled = false;
-        //send start time to server
+        
     } else {
         time -= 1;
         setTimeout(instructTimer, 1000);
@@ -29,8 +28,7 @@ function instructTimer() {
 }
 
 function mainTimer() {
-    //TODO - CHANGE tsec
-    var tsec = 15 * 60;
+    var tsec = 60 * 60;
     var hours = Math.floor(time / 3600);
     var mins = Math.floor(time % 3600 / 60);
     var secs = Math.floor(time % 60);
