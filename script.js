@@ -32,10 +32,9 @@ function instructTimer() {
 }
 
 function mainTimer() {
-    
     const mainInterval = setInterval(function () {
         var now = new Date().getTime() / 1000;
-        var elapsed = now - start;
+        var elapsed = now - starts;
         var timeleft = time - elapsed;
         var tsec = 60 * 60;
         var hours = Math.floor(time / 3600);
@@ -69,6 +68,7 @@ async function updateMainTime() {
         location.href = "instructions";
     } else {
         time = parseInt(resp);
+        starts = new Date().getTime() / 1000;
     }
 }
 async function updateTime() {
@@ -159,6 +159,7 @@ async function getMainTime() {
         location.href = "instructions";
     } else {
         time = parseInt(resp);
+        starts = new Date().getTime() / 1000;
         mainTimer();
     }
 
