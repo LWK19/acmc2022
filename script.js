@@ -7,10 +7,9 @@ function str_pad_left(string, pad, length) {
 }
 
 function instructTimer() {
-    var start = new Date().getTime()/1000;
     const instructInterval = setInterval(function () {
-        var now = new Date().getTime()/1000;
-        var elapsed = now - start;
+        var now = new Date().getTime() / 1000;
+        var elapsed = now - starts;
         var timeleft = time - elapsed;
         var days = Math.floor(timeleft / 86400);
         var hours = Math.floor(timeleft % 86400 / 3600);
@@ -26,26 +25,30 @@ function instructTimer() {
             clearInterval(instructInterval);
             document.getElementById("startBtn").innerHTML = "Start Quiz";
             document.getElementById("startBtn").disabled = false;
-    
         }
     }, 100);
 
-    
+
 }
 
 function mainTimer() {
-    var tsec = 60 * 60;
-    var hours = Math.floor(time / 3600);
-    var mins = Math.floor(time % 3600 / 60);
-    var secs = Math.floor(time % 60);
-    document.getElementById("clock").innerHTML = hours + ':' + str_pad_left(mins, '0', 2) + ':' + str_pad_left(secs, '0', 2);
-    document.getElementById("progress").style.width = time * 150 / tsec + "px";
-    if (time < 1) {
-        location.href = 'finish';
-    } else {
-        time -= 1;
-        setTimeout(mainTimer, 1000);
-    }
+    
+    const mainInterval = setInterval(function () {
+        var now = new Date().getTime() / 1000;
+        var elapsed = now - start;
+        var timeleft = time - elapsed;
+        var tsec = 60 * 60;
+        var hours = Math.floor(time / 3600);
+        var mins = Math.floor(time % 3600 / 60);
+        var secs = Math.floor(time % 60);
+        document.getElementById("clock").innerHTML = hours + ':' + str_pad_left(mins, '0', 2) + ':' + str_pad_left(secs, '0', 2);
+        document.getElementById("progress").style.width = time * 150 / tsec + "px";
+        
+        if (timeleft < 1) {
+            clearInterval(mainInterval);
+            location.href = 'finish';
+        }
+    }, 100);
 }
 
 async function updateMainTime() {
@@ -79,6 +82,7 @@ async function updateTime() {
         location.href = "finish";
     } else {
         time = parseInt(resp);
+        starts = new Date().getTime() / 1000;
     }
 }
 
@@ -131,6 +135,7 @@ async function getTime() {
         location.href = "finish";
     } else {
         time = parseInt(resp);
+        starts = new Date().getTime() / 1000;
         instructTimer();
     }
 
