@@ -7,23 +7,28 @@ function str_pad_left(string, pad, length) {
 }
 
 function instructTimer() {
-    var days = Math.floor(time / 86400);
-    var hours = Math.floor(time % 86400 / 3600);
-    var mins = Math.floor(time % 3600 / 60);
-    var secs = Math.floor(time % 60);
-    var str = "";
-    if (days > 0) {
-        str = days + ':';
-    }
-    str = str + hours + ':' + str_pad_left(mins, '0', 2) + ':' + str_pad_left(secs, '0', 2);
-    document.getElementById("startBtn").innerHTML = str;
-    if (time < 1) {
+    var start = new Date().getTime();
+    const instructInterval = setInterval(function () {
+        var now = new Date().getTime();
+        var elapsed = now - start;
+        var timeleft = time - elapsed;
+        var days = Math.floor(timeleft / 86400);
+        var hours = Math.floor(timeleft % 86400 / 3600);
+        var mins = Math.floor(timeleft % 3600 / 60);
+        var secs = Math.floor(timeleft % 60);
+        var str = "";
+        if (days > 0) {
+            str = days + ':';
+        }
+        str = str + hours + ':' + str_pad_left(mins, '0', 2) + ':' + str_pad_left(secs, '0', 2);
+        document.getElementById("startBtn").innerHTML = str;
+    }, 100);
+
+    if (timeleft < 1) {
+        clearInterval(instructInterval);
         document.getElementById("startBtn").innerHTML = "Start Quiz";
-        document.getElementById("startBtn").disabled = false;
-        
-    } else {
-        time -= 1;
-        setTimeout(instructTimer, 1000);
+        document.getElementById("startBtn").disabled =a false;
+
     }
 }
 
@@ -42,7 +47,7 @@ function mainTimer() {
     }
 }
 
-async function updateMainTime(){
+async function updateMainTime() {
     var resp = await post("get_time", getCookie("username"), getCookie("password"), "", "", "main");
     console.log(resp);
     if (resp == "Incorrect Password") {
@@ -66,7 +71,7 @@ async function updateMainTime(){
         secs = Math.floor(time % 60);
     }
 }
-async function updateTime(){
+async function updateTime() {
     var resp = await post("get_time", getCookie("username"), getCookie("password"), "", "", "inst");
     console.log(resp);
     if (resp == "Incorrect Password") {
