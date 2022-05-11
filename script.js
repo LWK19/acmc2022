@@ -27,7 +27,7 @@ function instructTimer() {
     if (timeleft < 1) {
         clearInterval(instructInterval);
         document.getElementById("startBtn").innerHTML = "Start Quiz";
-        document.getElementById("startBtn").disabled =a false;
+        document.getElementById("startBtn").disabled = false;
 
     }
 }
