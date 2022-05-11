@@ -7,9 +7,9 @@ function str_pad_left(string, pad, length) {
 }
 
 function instructTimer() {
-    var start = new Date().getTime();
+    var start = new Date().getTime()/1000;
     const instructInterval = setInterval(function () {
-        var now = new Date().getTime();
+        var now = new Date().getTime()/1000;
         var elapsed = now - start;
         var timeleft = time - elapsed;
         var days = Math.floor(timeleft / 86400);
@@ -22,14 +22,15 @@ function instructTimer() {
         }
         str = str + hours + ':' + str_pad_left(mins, '0', 2) + ':' + str_pad_left(secs, '0', 2);
         document.getElementById("startBtn").innerHTML = str;
+        if (timeleft < 1) {
+            clearInterval(instructInterval);
+            document.getElementById("startBtn").innerHTML = "Start Quiz";
+            document.getElementById("startBtn").disabled = false;
+    
+        }
     }, 100);
 
-    if (timeleft < 1) {
-        clearInterval(instructInterval);
-        document.getElementById("startBtn").innerHTML = "Start Quiz";
-        document.getElementById("startBtn").disabled = false;
-
-    }
+    
 }
 
 function mainTimer() {
