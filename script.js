@@ -64,6 +64,8 @@ async function updateMainTime() {
     } else if (resp == "Time is Up") {
         alert("Time's Up!");
         location.href = "finish";
+    } else if (resp == "Already Submitted") {
+        location.href = "finish";
     } else if (resp == "Not Started") {
         location.href = "instructions";
     } else {
@@ -80,6 +82,8 @@ async function updateTime() {
         location.href = "index";
     } else if (resp == "Competition Over") {
         location.href = "finish";
+    } else if (resp == "Already Submitted") {
+        location.href = "finish";
     } else {
         time = parseInt(resp);
         starts = new Date().getTime() / 1000;
@@ -89,7 +93,7 @@ async function updateTime() {
 async function post(meth, id, pword, ans, qn, timer) {
     document.getElementById("load").classList.remove("hidden");
     document.getElementById("load").classList.add("visible");
-    //let key = "AKfycbzJevBRqu4F1bOEv7P-D7bUDK_nYCoh8OpTEl8Ewi7riLPNroxnex7cdpI9wH46FPjiIw";
+    //let key = "AKfycbx4oApoLVCq6_BBTdS-pQ0ppd0I0vuQvxScCLE9F2KJoxg_G5n6Ei88S0FzNBgodj2HBA";
     let key = "AKfycbxMP99JXZCGTcgvrpOtYnUQXT8TGn9mi631WXktfFXLxjuzfuJXc4FIoqsE47YaqGyyfQ";
     let url = "https://script.google.com/macros/s/" + key + "/exec";
     var req = await jQuery.ajax({
@@ -118,6 +122,8 @@ async function login() {
         location.href = "finish";
     } else if (resp == "Time Up") {
         location.href = "feedback";
+    } else if (resp == "Already Submitted") {
+        location.href = "finish";
     } else {
         console.log(resp);
         alert("Response error");
@@ -132,6 +138,8 @@ async function getTime() {
     } else if (resp == "Incorrect Username") {
         location.href = "index";
     } else if (resp == "Competition Over") {
+        location.href = "finish";
+    } else if (resp == "Already Submitted") {
         location.href = "finish";
     } else {
         time = parseInt(resp);
@@ -154,6 +162,8 @@ async function getMainTime() {
         location.href = "finish";
     } else if (resp == "Time is Up") {
         alert("Time's Up!");
+        location.href = "finish";
+    } else if (resp == "Already Submitted") {
         location.href = "finish";
     } else if (resp == "Not Started") {
         location.href = "instructions";
@@ -178,6 +188,8 @@ async function start() {
         location.href = "index";
     } else if (resp == "Competition Over") {
         location.href = "finish";
+    } else if (resp == "Already Submitted") {
+        location.href = "finish";
     } else { alert("Error. Reload and try again."); }
 }
 
@@ -192,6 +204,8 @@ async function getName() {
     } else if (resp == "Time Up") {
         location.href = "feedback";
     } else if (resp == "Competition Over") {
+        location.href = "finish";
+    } else if (resp == "Already Submitted") {
         location.href = "finish";
     } else { document.getElementById("name").innerHTML = resp; }
 }
@@ -212,6 +226,8 @@ async function saveAns() {
             } else if (resp == "Incorrect Username") {
                 location.href = "index";
             } else if (resp == "Competition Over") {
+                location.href = "finish";
+            } else if (resp == "Already Submitted") {
                 location.href = "finish";
             } else {
                 var ans_list = JSON.parse(getCookie("ans_local"));
@@ -240,6 +256,8 @@ async function saveAns() {
                 location.href = "finish";
             } else if (resp == "Error: Input Not Number") {
                 alert("Input Error. Try Again.");
+            } else if (resp == "Already Submitted") {
+                location.href = "finish";
             } else {
                 var ans_list = JSON.parse(getCookie("ans_local"));
                 ans_list[qn - 1] = ans;
@@ -259,6 +277,8 @@ async function initQn() {
     } else if (resp == "Incorrect Username") {
         location.href = "index";
     } else if (resp == "Competition Over") {
+        location.href = "finish";
+    } else if (resp == "Already Submitted") {
         location.href = "finish";
     } else {
         qnlink = JSON.parse(resp);
@@ -316,6 +336,8 @@ async function shadeQNum() {
         location.href = "index";
     } else if (resp == "Competition Over") {
         location.href = "finish";
+    } else if (resp == "Already Submitted") {
+        location.href = "finish";
     } else {
         var ansqn = resp.split(',');
         for (var i = 1; i < 16; i++) {
@@ -371,4 +393,19 @@ function preload(url, i) {
     images[i].style = "max-width: 100%;max-height:100%;object-fit:cover;margin:auto";
 }
 
-//on submit, check all ans saved again, ignore empty because of reload
+async function finish() {
+    var resp = await post("end_time", getCookie("username"), getCookie("password"));
+    console.log(resp);
+    if (resp == "End Time Recorded") {
+        submit();
+    }
+    else if (resp == "Incorrect Password") {
+        location.href = "index";
+    } else if (resp == "Incorrect Username") {
+        location.href = "index";
+    } else if (resp == "Competition Over") {
+        location.href = "finish";
+    } else if (resp == "Already Submitted") {
+        location.href = "finish";
+    } else { alert("Error. Reload and try again."); }
+}
